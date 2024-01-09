@@ -52,6 +52,10 @@ body {
 }
 
 #showcase #book {
-    border-radius: 2px;
+    border-radius: 14px;
+}
+
+#quotes i {
+    opacity: 0.3;
 }
 
