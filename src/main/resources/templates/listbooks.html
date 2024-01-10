@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html th:replace="layout/masterLayout :: layout(~{::main})" lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<body>
+  <main>
+    <div class="container-fluid bg-light">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4" th:each="book : ${books}">
+            <div class="card mb-3" style="width: 18rem">
+              <img th:src="${book.imgUrl}" class="card-img-top" alt="">
+              <div class="card-body">
+                <p class="lead card-title" th:text="${book.title}"></p>
+                <p class="lead card-text" th:text="${'written by' + book.author.authorName}"></p>
+                <p class="lead">
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda, veritatis.
+                </p>
+              </div>
+              <div class="card-footer">
+                <div  justify-content-between d-flex>
+                  <span th:text="${'$' + book.price}"></span>
+                  <a th:href="@{'/book/book-details?id=' + ${book.id}
+                   + '&isbn=' + ${book.isbn}}" class="btn-link"><i>Details</i></a>
+                  <span th:text="${book.publisher.publisherName}"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+</body>
+</html>
