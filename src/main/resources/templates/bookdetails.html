@@ -1,11 +1,26 @@
 <!DOCTYPE html>
-<html th:replace="layout/masterLayout :: layout(~{::main})" lang="en"
-      xmlns:th="http://www.thymeleaf.org">
+<html th:replace="layout/masterLayout :: layout(~{::main})" xmlns:th="http://www.thymeleaf.org">
+
 <body>
-  <main class="role">
-    <div class="container">
-      <h3>Book Details</h3>
+<main role="main">
+  <div class="container-fluid bg-light">
+    <div class="container mt-5">
+      <div class="row">
+        <div class="col-md-6 p-5">
+          <div class="card shadow-lg rounded">
+            <img th:src="${book.imgUrl}" class="img-fluid" alt="">
+          </div>
+        </div>
+        <div class="col-md-6 p-5">
+          <h4 class="text-muted lead" th:text="${book.title}"></h4>
+          <p class="text-muted lead" th:text="${'by'+ book.author.authorName}"></p>
+          <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. A autem in repellendus voluptatem. Amet, autem cupiditate debitis eligendi explicabo molestiae obcaecati odio quibusdam vitae voluptates? Aut dicta provident sapiente sunt.</p>
+          <p class="lead">Price : <span th:text="${'$' +book.price}"></span></p>
+          <p class="lead">Publisher : <span th:text="${book.publisher.publisherName}"></span></p>
+        </div>
+      </div>
     </div>
-  </main>
+  </div>
+</main>
 </body>
 </html>

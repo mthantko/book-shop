@@ -44,8 +44,8 @@ public class BookController {
         }else {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
-        model.addAttribute("book", bookService);
-        bookService.findBookById(bookId);
+        model.addAttribute("book",
+        bookService.findBookById(bookId));
         return "bookdetails";
     }
 
