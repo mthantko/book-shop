@@ -13,21 +13,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/card")
+@RequestMapping("/cart")
 public class CartController {
     private final CartService cartService;
     private final BookService bookService;
 
-
     @GetMapping("/add-cart")
-    public String addToCart(@RequestParam("id") int id,
-                            @RequestParam("isbn") String isbn) {
-        BookId bookId = new BookId();
+    public String addToCart(@RequestParam("id")int id,
+                            @RequestParam("isbn")String isbn){
+        BookId bookId=new BookId();
         bookId.setId(id);
         bookId.setIsbn(isbn);
-        Book book = bookService.findBookById(bookId);
+        Book book= bookService.findBookById(bookId);
         cartService.addToCart(book);
-        return "redirect:/book/book-list";
-
+        return "redirect:/book/list-books";
     }
 }
