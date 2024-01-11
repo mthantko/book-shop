@@ -36,7 +36,7 @@ public class BookController {
     }
 
     @ModelAttribute("cartSize")
-    public Integer  catSize() {
+    public Integer  cartSize() {
         return cartService.cartSize();
     }
 

@@ -25,6 +25,14 @@ public class CartController {
         return "cartView";
     }
 
+
+    @GetMapping("/delete")
+    public String deleteCartItem(@RequestParam("id") int id,
+                                 @RequestParam("isbn") String isbn) {
+        cartService.deleteCartItem(id, isbn);
+        return "redirect:/cart/view-cart";
+    }
+
     @GetMapping("/add-cart")
     public String addtoCart(@RequestParam("id")int id,
                             @RequestParam("isbn")String isbn,
