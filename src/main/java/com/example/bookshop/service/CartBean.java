@@ -32,4 +32,7 @@ public class CartBean {
     }
 
 
+    public void clearCart() {
+        cartItems.clear();
+    }
 }
