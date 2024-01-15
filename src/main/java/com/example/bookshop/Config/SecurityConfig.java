@@ -39,7 +39,7 @@ public class SecurityConfig {
         throws Exception {
         http.formLogin(Customizer.withDefaults());
         http.authorizeHttpRequests(a -> {
-            a.requestMatchers("/static/**",
+            a.requestMatchers("/bootstrap/**",
                     "/book/**",
                     "/cart/**",
                     "/",

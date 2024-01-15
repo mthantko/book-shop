@@ -22,6 +22,7 @@ public class BookShopApplication {
     private final RoleDao roleDao;
 
     public static void main(String[] args) {
+
         SpringApplication.run(BookShopApplication.class, args);
     }
 

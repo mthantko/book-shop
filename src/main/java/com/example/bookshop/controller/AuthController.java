@@ -8,11 +8,13 @@ import com.example.bookshop.service.CartService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.time.LocalDate;
-import java.util.Locale;
+
 
 @Controller
 @RequiredArgsConstructor
@@ -46,22 +48,46 @@ public class AuthController {
         if (result.hasErrors()) {
             return "register";
         }
+
         System.out.println("BillingAddress " + billingAddress);
         System.out.println("Payment " + method);
         System.out.println("========= " + customer);
 
 
-        //authService.register(customer, order);
+        authService.register(customer, order);
+        this.customer = customer;
         return "redirect:/auth/info";
     }
 
+//    @GetMapping("/info")
+//    public String checkOutInfo(Map map,
+//                               @ModelAttribute("totalPrice") double totalPrice) {
+//        map.put("cartItems", cartService.getCartItems());
+//        map.put("totalPrice", totalPrice);
+//        return "info";
+//    }
+
+    // use server to page
+    private Customer customer;
     @GetMapping("/info")
-    public String checkOutInfo() {
-        return "info";
+    public ModelAndView checkOutInfo(ModelMap map,
+                                     @ModelAttribute("totalPrice") double totalPrice) {
+//        map.put("cartItems", cartService.getCartItems());
+//        map.put("totalPrice", totalPrice);
+        ModelAndView mv = new ModelAndView();
+        mv.addObject("cartItems", cartService.getCartItems());
+        mv.addObject("totalPrice", totalPrice);
+        mv.addObject("customerInfo", authService
+                .findCustomerInfoByCustomerName(customer.getCustomerName()));
+        mv.setViewName("info");
+        return mv;
+
     }
 
+    //auth/login
     @GetMapping("/login")
-    public String login() {
+    public String login()
+    {
         return "login";
     }
 
