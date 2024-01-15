@@ -1,4 +1,4 @@
-package com.example.bookshop.Security;
+package com.example.bookshop.security;
 
 import com.example.bookshop.entity.Customer;
 import org.springframework.security.core.GrantedAuthority;
@@ -9,20 +9,18 @@ import java.util.Collection;
 import java.util.stream.Collectors;
 
 public class SecurityCustomer implements UserDetails {
-
     private final Customer customer;
 
     public SecurityCustomer(Customer customer) {
         this.customer = customer;
     }
 
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return customer.getRoles()
                 .stream()
                 .map(r -> new SimpleGrantedAuthority(r.getRoleName()))
-                .collect(Collectors.toSet());
+                .collect(Collectors.toList());
     }
 
     @Override

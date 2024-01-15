@@ -12,15 +12,8 @@ public interface CustomerDao extends JpaRepository<Customer,Integer> {
     Optional<Customer> findCustomerByCustomerName(String customerName);
 
     @Query("""
-        select new com.example.bookshop.dto.CustomerOrder(c.customerName,
-                                                    c.email,
-                                                    c.phoneNumber,
-                                                    o.shippingAddress,
-                                                    o.billingAddress
-                                                 ) 
-from Customer c join c.orders o where c.customerName = ?1
+select new com.example.bookshop.dto.CustomerOrder(c.customerName,c.email,c.phoneNumber,o.billingAddress,o.shippingAddress)
+ from Customer c join c.orders o where c.customerName = ?1
 """)
-
     Optional<CustomerOrder> customerOrderInfo(String customerName);
-
 }

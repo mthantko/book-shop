@@ -30,21 +30,17 @@ public class Book {
     @ManyToMany
     private List<Genre>  genres=
             new ArrayList<>();
-    @OneToMany(mappedBy = "book")
-    private List<OrderItem> orderItems=
-            new ArrayList<>();
+    @ManyToOne
+    private OrderItem orderItem;
 
-    public void addOrderItem(OrderItem orderItem){
-        orderItem.setBook(this);
-        orderItems.add(orderItem);
-    }
+
 
     public void addGenres(Genre genre){
         genre.getBooks().add(this);
         genres.add(genre);
     }
 
-    public Book(int id, String isbn, String title, String description, double price, int stock, String imgUrl) {
+    public Book(int id, String isbn, String title, String description, double price, int stock,String imgUrl) {
         this.id = id;
         this.isbn = isbn;
         this.title = title;

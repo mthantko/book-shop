@@ -6,17 +6,17 @@ import lombok.Setter;
 
 import java.util.*;
 
-@Entity
 @Getter
 @Setter
+@Entity
 public class Role {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String roleName;
-
     @ManyToMany(mappedBy = "roles")
-    private Set<Customer> customers =
+    private Set<Customer> customers=
             new HashSet<>();
 
     @Override

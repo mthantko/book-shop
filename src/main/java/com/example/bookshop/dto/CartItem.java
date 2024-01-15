@@ -1,11 +1,13 @@
 package com.example.bookshop.dto;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
 
 @Getter
 @Setter
@@ -17,12 +19,9 @@ public class CartItem {
     private String isbn;
     private String title;
     private double price;
-    private int quantity;
-
-
-    private List<Integer> cartItemQuantity =
+    private int quantity=1;
+    private List<Integer> cartItemQuantity=
             new ArrayList<>();
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

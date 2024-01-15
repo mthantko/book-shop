@@ -1,58 +1,40 @@
 <!DOCTYPE html>
 <html th:replace="layout/masterLayout :: layout(~{::main})" xmlns:th="http://www.thymeleaf.org">
-<body>
 
+<body>
 <main role="main">
   <div class="container-fluid bg-light">
-    <div class="container pt-5">
-      <div class="row my-3">
+    <div class="container mt-5">
+
+      <div class="row my-3 p-3">
         <div class="col-md-10"></div>
-        <div class="col-md-2 text-end">
-          <h4>
-            <a class="d-inline me-2 text-dark" style="text-decoration: none!important;"
-               th:href="@{/cart/view-cart}">
-              <i class="fas fa-shopping-cart"></i>
-            </a>
-            <span class="badge bg-success" th:text="${cartSize}"></span>
-          </h4>
-        </div>
+        <div class="col-md-2"><a style="text-decoration: none!important;color:red!important;" th:href="@{/cart/view-cart}"> <h3><i class="fas fa-cart-plus me-2 d-inline"></i>
+          <span class="badge bg-success" th:text="${cartSize}"></span></h3> </a></div>
       </div>
+
       <div class="row">
         <div class="col-md-6 p-5">
           <div class="card shadow rounded">
-            <img class="img-fluid" alt="book-img"
-                 th:src="${book.imgUrl}"
-            >
+            <img th:src="${book.imgUrl}" class="img-fluid" alt="">
           </div>
+
         </div>
         <div class="col-md-6 p-5">
-          <h4 class="lead text-muted"
-              th:text="${book.title}"
-          ></h4>
-          <p class="lead text-muted"
-             th:text="${'-by ' + book.author.authorName}"
-          ></p>
-          <p class="lead">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias, commodi distinctio dolore
-            pariatur possimus quae sint soluta voluptatem. Dolorum in, iure? Aperiam error illum itaque
-            laboriosam minus nostrum omnis voluptatem.
-          </p>
-          <p class="lead">Price : <span th:text="${'$' + book.price}"></span></p>
+          <h4 class="text-muted lead" th:text="${book.title}"></h4>
+          <p class="text-muted lead" th:text="${'-by'+ book.author.authorName}"></p>
+          <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab adipisci delectus error, eum inventore itaque laborum natus quam suscipit voluptate.
+            A beatae dolor enim ex odit quia reiciendis sint suscipit?</p>
+          <p class="lead">Price : <span th:text="${'$'+ book.price}"></span></p>
           <p class="lead">Publisher : <span th:text="${book.publisher.publisherName}"></span></p>
+
           <div class="my-3">
-            <a class="btn btn-primary"
-               th:href="@{'/cart/add-cart?id=' + ${book.id} + '&isbn=' +
-                           ${book.isbn} + '&page=details'}"
-            >Add Cart</a>
-            <a class="btn btn-info"
-               th:href="@{/book/list-books}"
-            >Continue Shopping</a>
+            <a th:href="@{'/cart/add-cart?id='+ ${book.id} +'&isbn='+ ${book.isbn}+ '&page=details'}" class="btn btn-primary me-3">Add Cart</a>
+            <a th:href="@{/book/list-books}" class="btn btn-success">Continue Shopping</a>
           </div>
         </div>
       </div>
     </div>
   </div>
 </main>
-
 </body>
 </html>

@@ -19,7 +19,7 @@ public class BookService {
         return bookDao.findAll();
     }
 
-    public Book findBookById(BookId bookId) {
+    public Book findBookById(BookId bookId){
         return bookDao.findById(bookId)
                 .orElseThrow(EntityNotFoundException::new);
     }

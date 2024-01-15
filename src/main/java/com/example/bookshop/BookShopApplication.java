@@ -2,7 +2,7 @@ package com.example.bookshop;
 
 import com.example.bookshop.dao.*;
 import com.example.bookshop.entity.*;
-import com.example.bookshop.utils.IsbnGenerator;
+import com.example.bookshop.util.IsbnGenerator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
@@ -14,118 +14,96 @@ import org.springframework.transaction.annotation.Transactional;
 @SpringBootApplication
 @RequiredArgsConstructor
 public class BookShopApplication {
-
     private final AuthorDao authorDao;
     private final BookDao bookDao;
     private final GenreDao genreDao;
     private final PublisherDao publisherDao;
     private final RoleDao roleDao;
-
-    public static void main(String[] args) {
-
-        SpringApplication.run(BookShopApplication.class, args);
-    }
-
-    @Transactional @Profile("security")
-    @Bean
-    public ApplicationRunner runner1() {
-        return r -> {
-            Role admin = new Role();
+    @Bean @Transactional@Profile("security")
+    public ApplicationRunner runner1(){
+        return r ->{
+            Role admin=new Role();
             admin.setRoleName("ROLE_ADMIN");
 
-            Role user = new Role();
+            Role user=new Role();
             user.setRoleName("ROLE_USER");
 
             roleDao.save(admin);
             roleDao.save(user);
-
         };
-
     }
+    @Bean @Transactional @Profile("data")
+    public ApplicationRunner runner(){
+        return  r ->{
+            Author author1=
+                    new Author("Charles Dickens","charles@gmail.com");
+            Author author2=
+                    new Author("Thomas Hardy","hardy@gmail.com");
 
-    @Bean
-    @Transactional
-    @Profile("data")
-    public ApplicationRunner runner() {
-        return r -> {
-            Author author1 =
-                    new Author("Chales Dickens", "charls@gmail.com");
-            Author author2 =
-                    new Author("Thomas Hardy", "hardy@gmail.com");
-            Publisher publisher1 =
-                    new Publisher("New Era", "newra@gmail.com");
-            Publisher publisher2 =
-                    new Publisher("Sun", "sun@gmail.com");
+            Publisher publisher1=new Publisher("New Era","newera@gmail.com");
+            Publisher publisher2=new Publisher("Sun","sun@gmail.com");
 
-            Genre genre1 = new Genre();
+            Genre genre1=new Genre();
             genre1.setGenreName("Tragedy");
 
-            Genre genre2 = new Genre();
+            Genre genre2=new Genre();
             genre2.setGenreName("Adventure");
-
-            Book book1 = new Book(
-                    1,
+//public Book(int id, String isbn, String title, String description, double price, int stock,String imgUrl) {
+            Book book1=new Book(
+                1,
                     IsbnGenerator.generate(),
                     "Oliver Twist",
                     "Excellent",
-                    50,
+                    50.3,
                     20,
-                    "https://source.unsplash.com/366x200/?flower"
+                    "https://source.unsplash.com/400x300/?flower"
             );
-
-            Book book2 = new Book(
+            Book book2=new Book(
                     2,
                     IsbnGenerator.generate(),
                     "Great Expectations",
                     "Good Choice",
-                    60,
+                    25.3,
                     20,
-                    "https://source.unsplash.com/366x200/?nature"
+                    "https://source.unsplash.com/400x300/?nature"
             );
-
-            Book book3 = new Book(
+            Book book3=new Book(
                     3,
                     IsbnGenerator.generate(),
                     "Bleak House",
                     "Nice",
                     22.3,
                     20,
-                    "https://source.unsplash.com/366x200/?ocean"
+                    "https://source.unsplash.com/400x300/?ocean"
             );
-
-            Book book4 = new Book(
+            Book book4=new Book(
                     4,
                     IsbnGenerator.generate(),
-                    "Under Greenwood Tree",
+                    "Under The Greenwood Tree",
                     "Excellent",
                     50.3,
                     20,
-                    "https://source.unsplash.com/366x200/?flower"
+                    "https://source.unsplash.com/400x300/?flower"
             );
-
-            Book book5 = new Book(
+            Book book5=new Book(
                     5,
                     IsbnGenerator.generate(),
                     "Return of the Native",
                     "Excellent",
                     25.3,
                     20,
-                    "https://source.unsplash.com/366x200/?flower"
+                    "https://source.unsplash.com/400x300/?flower"
             );
-
-            Book book6 = new Book(
+            Book book6=new Book(
                     6,
                     IsbnGenerator.generate(),
-                    "Far from the Maddening Crowd",
+                    "Far From the Maddening Crowd",
                     "Excellent",
-                    50,
+                    50.3,
                     20,
-                    "https://source.unsplash.com/366x200/?flower"
+                    "https://source.unsplash.com/400x300/?flower"
             );
-
             //mapping
-            //author & book
-
             author1.addBook(book1);
             author1.addBook(book2);
             author1.addBook(book3);
@@ -134,35 +112,29 @@ public class BookShopApplication {
             author2.addBook(book5);
             author2.addBook(book6);
 
-            // publisher & book
 
-            Publisher pub1 = publisherDao.save(publisher1);
+            Publisher pub1=publisherDao.save(publisher1);
 
             pub1.addBook(book1);
             pub1.addBook(book2);
             pub1.addBook(book3);
 
-            Publisher pub2 = publisherDao.save(publisher2);
+            Publisher pub2=publisherDao.save(publisher2);
 
             pub2.addBook(book4);
             pub2.addBook(book5);
             pub2.addBook(book6);
 
-            // book & genre
-
-            Genre gen1 = genreDao.save(genre1);
+            Genre gen1=genreDao.save(genre1);
+            Genre gen2=genreDao.save(genre2);
 
             book1.addGenres(gen1);
             book2.addGenres(gen1);
             book3.addGenres(gen1);
 
-            Genre gen2 = genreDao.save(genre2);
-
             book4.addGenres(gen2);
             book5.addGenres(gen2);
             book6.addGenres(gen2);
-
-
 
 //            bookDao.save(book1);
 //            bookDao.save(book2);
@@ -170,11 +142,18 @@ public class BookShopApplication {
 //            bookDao.save(book4);
 //            bookDao.save(book5);
 //            bookDao.save(book6);
-
             authorDao.save(author1);
             authorDao.save(author2);
 
+
+
+
         };
+    }
+
+
+    public static void main(String[] args) {
+        SpringApplication.run(BookShopApplication.class, args);
     }
 
 }
